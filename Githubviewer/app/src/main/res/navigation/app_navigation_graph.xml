@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/app_navigation_graph"
+    app:startDestination="@id/fragmentRepositoriesList">
+
+    <fragment
+        android:id="@+id/fragmentRepositoriesList"
+        android:name="com.example.githubviewer.ui.fragments.FragmentRepositoriesList"
+        android:label="FragmentRepositoriesList" >
+        <action
+            android:id="@+id/action_fragmentRepositoriesList_to_fragmentRepositoryInfo"
+            app:destination="@id/fragmentRepositoryInfo"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentRepositoryInfo"
+        android:name="com.example.githubviewer.ui.fragments.FragmentRepositoryInfo"
+        android:label="FragmentRepositoryInfo" >
+        <argument
+            android:name="repositoryOwner"
+            app:argType="string" />
+        <argument
+            android:name="repositoryName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSearchRepositories"
+        android:name="com.example.githubviewer.ui.fragments.FragmentSearchRepositories"
+        android:label="FragmentSearchRepositories" >
+        <action
+            android:id="@+id/action_fragmentSearchRepositories_to_fragmentRepositoryInfo"
+            app:destination="@id/fragmentRepositoryInfo"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+</navigation>

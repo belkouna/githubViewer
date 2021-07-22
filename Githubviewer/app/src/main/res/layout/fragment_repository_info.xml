@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="repo"
+            type="com.example.githubviewer.models.RepositoryInfo" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.example.githubviewer.ui.RepositoryInfoViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/default_padding"
+        tools:context=".ui.details.DetailsFragment">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/image_wrapper"
+            style="@style/Card.CircleImage.DetailsAvatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="@dimen/details_image_size"
+                android:layout_height="@dimen/details_image_size"
+                android:layout_gravity="center"
+                app:load_image="@{repo.owner.avatar_url}" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/author"
+            style="@style/TextView.Primary.Title"
+            android:layout_marginStart="@dimen/default_margin"
+            android:text="@{repo.owner.login}"
+            app:layout_constraintStart_toEndOf="@id/image_wrapper"
+            app:layout_constraintTop_toTopOf="@id/image_wrapper"
+            tools:text="Author name" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/image_wrapper"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toEndOf="@id/image_wrapper"
+            app:layout_constraintTop_toBottomOf="@id/author">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/ic_watcher"
+                android:visibility="@{vm.isWatchersVisible() ? view.VISIBLE : view.GONE}" />
+
+            <TextView
+                android:id="@+id/watchers"
+                style="@style/TextView.Secondary.Body"
+                android:layout_marginEnd="8dp"
+                android:text="@{String.valueOf(repo.watchers)}"
+                android:visibility="@{vm.isWatchersVisible() ? view.VISIBLE : view.GONE}"
+                tools:text="33" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/ic_stargazers" />
+
+            <TextView
+                android:id="@+id/stars"
+                style="@style/TextView.Secondary.Body"
+                android:layout_marginEnd="8dp"
+                android:text="@{String.valueOf(repo.stargazers_count)}"
+                tools:text="425" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/ic_fork" />
+
+            <TextView
+                android:id="@+id/forks"
+                style="@style/TextView.Secondary.Body"
+                android:text="@{String.valueOf(repo.forks_count)}"
+                tools:text="145" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/ic_issue" />
+
+            <TextView
+                android:id="@+id/tv_open_issues_count"
+                style="@style/TextView.Secondary.Body"
+                android:text="@{String.valueOf(repo.open_issues)}"
+                android:layout_marginEnd="8dp"
+                tools:text="145" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TextView.Primary.Header.Bold"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@{repo.name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_wrapper"
+            tools:text="Repository name" />
+
+        <TextView
+            android:id="@+id/description"
+            style="@style/TextView.Secondary.Body"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@{repo.description}"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/default_branch"
+            style="@style/TextView.Secondary.Body"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@{`Default branch: `+repo.default_branch}"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            tools:text="default branch" />
+
+
+
+        <TextView
+            android:id="@+id/created_at"
+            style="@style/TextView.Secondary.Body"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@{`Repository created at: `+repo.created_at}"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/default_branch"
+            tools:text="created at" />
+
+        <TextView
+            android:id="@+id/updated_at"
+            style="@style/TextView.Secondary.Body"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@{`Repository updated at: `+repo.updated_at}"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/created_at"
+            tools:text="updated at" />
+
+        <TextView
+            android:id="@+id/contributors_url"
+            style="@style/TextView.Secondary.Body"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@{repo.contributors_url}"
+            android:textColor="@color/colorLink"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/updated_at"
+            tools:text="updated at" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/project_link_container"
+            app:layout_constraintTop_toBottomOf="@id/contributors_url"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/default_margin"
+            style="@style/Card.Clickable.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_github"
+                    app:tint="@color/colorTextPrimary" />
+
+                <TextView
+                    android:id="@+id/project_link_tv"
+                    style="@style/TextView.Secondary"
+                    android:layout_marginBottom="2dp"
+                    android:text="Open project in browser" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/project_link_container"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+
+                android:id="@+id/recyclerViewContributors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ProgressBar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/detailsProgressBar"
+            style="?attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

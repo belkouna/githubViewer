@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/fragmentRepositoriesList"
+        android:title="Repositories"
+        android:icon="@drawable/ic_all_repositories" />
+
+    <item android:id="@+id/fragmentSearchRepositories"
+        android:title="Search Repositories"
+        android:icon="@drawable/ic_search" />
+
+</menu>
