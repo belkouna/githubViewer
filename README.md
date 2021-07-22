@@ -17,3 +17,7 @@ Next features:
 - viewing list of contributors in repository details
 - refactoring and better organization of code
 - exploring dependency injection and applying it in project
+
+
+
+https://github.com/unaito/githubViewer/blob/main/screenshots/repositories%20list.jpg
